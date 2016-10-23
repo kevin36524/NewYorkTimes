@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.patelkev.newyorktimes.Models.RootResponse;
+import com.example.patelkev.newyorktimes.Network.NYTimesServices;
 import com.example.patelkev.newyorktimes.Network.NetworkHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,8 +71,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fecthArticlesWithRetrofit(String query) {
-        retrofit2.Call<RootResponse> rootResponseCall = NetworkHelper.sharedInstance()
-                .getNyTimesServices().listArticles("56e2ed9898c442f9826db5ee05a33ac4",query);
+        NYTimesServices nyTimesServices = NetworkHelper.sharedInstance().getNyTimesServices();
+        retrofit2.Call<RootResponse> rootResponseCall;
+        String APIKey = "56e2ed9898c442f9826db5ee05a33ac4";
+
+        if (query == null) {
+            rootResponseCall = nyTimesServices.listArticles(APIKey);
+        } else {
+            rootResponseCall = nyTimesServices.listArticles(APIKey, query);
+        }
 
         rootResponseCall.enqueue(new retrofit2.Callback<RootResponse>() {
             @Override
