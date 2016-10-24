@@ -1,6 +1,7 @@
 package com.example.patelkev.newyorktimes.Activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.patelkev.newyorktimes.Adapters.ArticlesAdapter;
+import com.example.patelkev.newyorktimes.Fragments.ArticleFilterFragment;
 import com.example.patelkev.newyorktimes.Models.Doc;
+import com.example.patelkev.newyorktimes.Models.FilterModel;
 import com.example.patelkev.newyorktimes.Models.RootResponse;
 import com.example.patelkev.newyorktimes.Network.NYTimesServices;
 import com.example.patelkev.newyorktimes.Network.NetworkHelper;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     EndlessRecyclerViewScrollListener endlessRecyclerViewScrollListener;
     String searchQuery;
+    FilterModel filterPref = new FilterModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         filterItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Log.d("KevinDebug", "I am clicking the filter icon");
+                showFilterDialog();
                 return true;
             }
         });
@@ -103,12 +107,25 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void showFilterDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        final MainActivity activityRef = this;
+        ArticleFilterFragment articleFilterFragment = ArticleFilterFragment.newInstance(filterPref, new ArticleFilterFragment.ArticleFilterFragmentDelegate() {
+            @Override
+            public void setFilterPref(FilterModel filterPref) {
+                activityRef.filterPref = filterPref;
+                fetchArticles(0);
+            }
+        });
+        articleFilterFragment.show(fm, "fragment_edit_name");
+    }
+
     private void fetchArticles(final int page) {
         NYTimesServices nyTimesServices = NetworkHelper.sharedInstance().getNyTimesServices();
         retrofit2.Call<RootResponse> rootResponseCall;
         String APIKey = "56e2ed9898c442f9826db5ee05a33ac4";
 
-        rootResponseCall = nyTimesServices.listArticles(APIKey, searchQuery, page, null, null, null, null);
+        rootResponseCall = nyTimesServices.listArticles(APIKey, searchQuery, page, filterPref.getFilterString(), null, null, null);
 
         if (page == 0) {
             endlessRecyclerViewScrollListener.resetState();
