@@ -1,6 +1,8 @@
 package com.example.patelkev.newyorktimes.Models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -68,6 +70,15 @@ public class FilterModel implements Serializable {
         return beginDate;
     }
 
+    public String getDate(boolean prettyPrint) {
+
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+        if (prettyPrint) {
+            df = new SimpleDateFormat("MM/dd/yyyy");
+        }
+        return  df.format(beginDate);
+    }
     public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
     }

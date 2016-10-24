@@ -10,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.patelkev.newyorktimes.Models.FilterModel;
 import com.example.patelkev.newyorktimes.R;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +30,8 @@ public class ArticleFilterFragment extends DialogFragment {
         public void setFilterPref(FilterModel filterPref);
     }
 
-    EditText etDate;
+    TextView tvDate;
+    DatePicker datePicker;
     CheckBox cbArts;
     CheckBox cbForeign;
     CheckBox cbSports;
@@ -64,10 +69,11 @@ public class ArticleFilterFragment extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        etDate = (EditText) view.findViewById(R.id.etDate);
+        tvDate = (TextView) view.findViewById(R.id.tvDate);
+        datePicker = (DatePicker) view.findViewById(R.id.datePicker);
 
         cbArts = (CheckBox) view.findViewById(R.id.cbarts);
         cbForeign = (CheckBox)view.findViewById(R.id.cbforeign);
@@ -84,12 +90,39 @@ public class ArticleFilterFragment extends DialogFragment {
         rbOldest.setActivated(filterPref.getOldest());
 
         saveButton = (Button) view.findViewById(R.id.btnSave);
+        resetButton = (Button) view.findViewById(R.id.btnReset);
 
+        tvDate.setText(filterPref.getDate(true));
+        tvDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker.setVisibility(View.VISIBLE);
+                resetButton.setVisibility(View.INVISIBLE);
+                saveButton.setVisibility(View.INVISIBLE);
+                datePicker.bringToFront();
+            }
+        });
+
+        Date beginDate = filterPref.getBeginDate();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(beginDate.getTime());
+
+        datePicker.init(calendar.get(calendar.YEAR), calendar.get(calendar.MONTH), calendar.get(calendar.DATE), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(year, monthOfYear, dayOfMonth);
+                filterPref.setBeginDate(calendar.getTime());
+                tvDate.setText(filterPref.getDate(true));
+                datePicker.setVisibility(View.INVISIBLE);
+                saveButton.setVisibility(View.VISIBLE);
+                resetButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final ArticleFilterFragment fragmentReference = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterModel filterPref = new FilterModel();
-
                 filterPref.setSports(cbSports.isChecked());
                 filterPref.setArts(cbArts.isChecked());
                 filterPref.setForeign(cbArts.isChecked());
@@ -98,6 +131,7 @@ public class ArticleFilterFragment extends DialogFragment {
                 filterPref.setOldest(rbOldest.isActivated());
 
                 delegate.setFilterPref(filterPref);
+                fragmentReference.dismiss();
             }
         });
 
