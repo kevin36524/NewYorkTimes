@@ -52,8 +52,8 @@ Here's a walkthrough of implemented user stories:
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
-
-Describe any challenges encountered while building the app.
+Spent lot of time trying to use Retrofit. Retraced with AsyncHttp, then Okhttp then finally with retrofit.
+Also was hitting the rate limit for the API and spent quite some time figuring that out.
 
 ## Open-source libraries used
 
