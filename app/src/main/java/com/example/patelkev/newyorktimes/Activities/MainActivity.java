@@ -74,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
         final MenuItem searchItem = menu.findItem(R.id.search_bar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+        final MenuItem filterItem = menu.findItem(R.id.btnFilter);
+        filterItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.d("KevinDebug", "I am clicking the filter icon");
+                return true;
+            }
+        });
+
         final MainActivity activityReference = this;
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -99,11 +108,7 @@ public class MainActivity extends AppCompatActivity {
         retrofit2.Call<RootResponse> rootResponseCall;
         String APIKey = "56e2ed9898c442f9826db5ee05a33ac4";
 
-        if (searchQuery == null) {
-            rootResponseCall = nyTimesServices.listArticles(APIKey, page);
-        } else {
-            rootResponseCall = nyTimesServices.listArticles(APIKey, searchQuery, page);
-        }
+        rootResponseCall = nyTimesServices.listArticles(APIKey, searchQuery, page, null, null, null, null);
 
         if (page == 0) {
             endlessRecyclerViewScrollListener.resetState();
