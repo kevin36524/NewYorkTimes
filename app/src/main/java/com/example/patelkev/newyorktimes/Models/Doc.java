@@ -1,10 +1,11 @@
 
 package com.example.patelkev.newyorktimes.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Doc {
+public class Doc implements Serializable{
 
     private String webUrl;
     private String snippet;

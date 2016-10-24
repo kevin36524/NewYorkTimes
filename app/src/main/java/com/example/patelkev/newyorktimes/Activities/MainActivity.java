@@ -1,5 +1,6 @@
 package com.example.patelkev.newyorktimes.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
@@ -48,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        articlesAdapter = new ArticlesAdapter(this);
+        articlesAdapter = new ArticlesAdapter(this, new ArticlesAdapter.TapDelegate() {
+            @Override
+            public void articleTapped(Doc article, int position) {
+                Intent it = new Intent(MainActivity.this, ArticleDetailActivity.class);
+                it.putExtra("article", article);
+
+                startActivity(it);
+            }
+        });
 
         rvArticlesContainer.setLayoutManager(layoutManager);
         rvArticlesContainer.setAdapter(articlesAdapter);

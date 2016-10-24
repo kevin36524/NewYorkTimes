@@ -21,8 +21,13 @@ import java.util.List;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
 
-    List<Doc> articles = new ArrayList<Doc>();
+    public interface TapDelegate {
+        public void articleTapped(Doc article, int position);
+    }
+
+    public List<Doc> articles = new ArrayList<Doc>();
     Context context;
+    TapDelegate delegate;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,7 +36,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
         View articleView = inflater.inflate(R.layout.article_cell, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(articleView, parent);
+        ViewHolder viewHolder = new ViewHolder(articleView, parent, this);
 
         return viewHolder;
     }
@@ -54,8 +59,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         return articles.size();
     }
 
-    public ArticlesAdapter(Context context) {
+    public ArticlesAdapter(Context context, TapDelegate tapDelegate) {
         this.context = context;
+        this.delegate = tapDelegate;
     }
 
     public void appendArticles(List<Doc> newArticles) {
@@ -72,18 +78,28 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         this.notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView articleImageView;
         TextView headlineTextView;
+        ArticlesAdapter adapter;
         int cellWidth;
 
-        public ViewHolder(View itemView, ViewGroup parent) {
+        public ViewHolder(View itemView, ViewGroup parent, ArticlesAdapter adapter) {
             super(itemView);
 
+            itemView.setOnClickListener(this);
+            this.adapter = adapter;
             cellWidth = parent.getWidth()/2 - 10;
             articleImageView = (ImageView) itemView.findViewById(R.id.ivArticleImage);
             headlineTextView = (TextView) itemView.findViewById(R.id.tvHeadline);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Doc article = adapter.articles.get(position);
+            adapter.delegate.articleTapped(article, position);
         }
     }
 }

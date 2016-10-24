@@ -1,7 +1,9 @@
 
 package com.example.patelkev.newyorktimes.Models;
 
-public class Headline {
+import java.io.Serializable;
+
+public class Headline implements Serializable {
 
     private String main;
     private String contentKicker;

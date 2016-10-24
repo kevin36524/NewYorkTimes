@@ -1,7 +1,9 @@
 
 package com.example.patelkev.newyorktimes.Models;
 
-public class Multimedium {
+import java.io.Serializable;
+
+public class Multimedium implements Serializable {
 
     private Integer width;
     private String url;
