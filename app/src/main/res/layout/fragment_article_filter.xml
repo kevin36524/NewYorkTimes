@@ -1,0 +1,127 @@
+<!-- fragment_edit_name.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/filter_article"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:padding="30dp"
+    android:layout_gravity="center" android:orientation="vertical"  >
+
+
+    <TextView
+        android:text="Begin Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/etDate"
+        android:gravity="center_vertical"
+        android:id="@+id/tvLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvLabel"
+        android:layout_toEndOf="@+id/tvLabel"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:id="@+id/etDate" />
+
+
+
+    <TextView
+        android:text="Field Filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/cbforeign"
+        android:gravity="center_vertical"
+        android:id="@+id/tvFilter" />
+
+    <CheckBox
+        android:text="Sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDate"
+        android:layout_alignLeft="@+id/etDate"
+        android:layout_alignStart="@+id/etDate"
+        android:id="@+id/cbsports" />
+
+    <CheckBox
+        android:text="Arts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cbsports"
+        android:layout_alignLeft="@+id/cbsports"
+        android:id="@+id/cbarts" />
+
+    <CheckBox
+        android:text="Foreign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cbarts"
+        android:layout_alignLeft="@+id/cbarts"
+        android:layout_alignStart="@+id/cbarts"
+        android:id="@+id/cbforeign" />
+
+    <TextView
+        android:text="Sort Order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cbforeign"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/tvSort" />
+
+    <RadioGroup
+        android:id="@+id/sortOrder"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSort"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:text="Oldest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/rbOldest" />
+
+        <RadioButton
+            android:text="Newest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cbforeign"
+            android:layout_toRightOf="@+id/rbOldest"
+            android:id="@+id/rbNewest" />
+
+    </RadioGroup>
+
+    <Button
+        android:text="Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sortOrder"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btnReset" />
+
+    <Button
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sortOrder"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnSave" />
+
+
+
+
+</RelativeLayout>
