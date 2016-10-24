@@ -33,7 +33,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         detailWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         // Configure the client to use when opening URLs
         detailWebView.setWebViewClient(new MyBrowser());
-        detailWebView.loadUrl("https://www.yahoo.com");
+        detailWebView.loadUrl(selectedArticle.getWebUrl());
         toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         this.setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayShowTitleEnabled(false);

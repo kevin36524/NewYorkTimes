@@ -1,12 +1,15 @@
 
 package com.example.patelkev.newyorktimes.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Doc implements Serializable{
 
+    @SerializedName("web_url")
     private String webUrl;
     private String snippet;
     private List<Multimedium> multimedia = new ArrayList<Multimedium>();
