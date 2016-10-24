@@ -12,12 +12,9 @@ import retrofit2.http.Query;
 
 public interface NYTimesServices {
     @GET("svc/search/v2/articlesearch.json")
-    public Call<RootResponse> listArticles(@Query("api-key") String apiKey);
+    public Call<RootResponse> listArticles(@Query("api-key") String apiKey, @Query("page") int page);
 
     @GET("svc/search/v2/articlesearch.json")
-    public Call<RootResponse> listArticles(@Query("api-key") String apiKey, @Query("q") String query);
-
-    @GET("svc/search/v2/articlesearch.json")
-    public Call<RootResponse> listArticles(@Query("api-key") String apiKey, @Query("q") String query, @Query("page") String page);
+    public Call<RootResponse> listArticles(@Query("api-key") String apiKey, @Query("q") String query, @Query("page") int page);
 
 }

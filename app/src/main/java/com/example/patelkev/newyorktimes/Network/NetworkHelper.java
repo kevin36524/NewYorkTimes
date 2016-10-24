@@ -24,7 +24,7 @@ public class NetworkHelper {
     private NetworkHelper() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        okHttpClient = new OkHttpClient.Builder().build();
+        okHttpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

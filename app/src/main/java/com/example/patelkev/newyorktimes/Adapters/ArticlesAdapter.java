@@ -58,8 +58,17 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         this.context = context;
     }
 
-    public void appendArticles(List<Doc> articles) {
-        this.articles = articles;
+    public void appendArticles(List<Doc> newArticles) {
+
+        int currentSize = getItemCount();
+        articles.addAll(newArticles);
+
+        this.notifyDataSetChanged();
+        //this.notifyItemRangeInserted(currentSize, articles.size() - 1);
+    }
+
+    public void resetAdapter() {
+        this.articles = new ArrayList<Doc>();
         this.notifyDataSetChanged();
     }
 
