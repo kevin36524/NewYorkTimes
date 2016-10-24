@@ -14,7 +14,11 @@ public class Multimedium {
     }
 
     public String getUrl() {
-        return "http://nytimes.com/" + url;
+        if (url != null) {
+            return "http://nytimes.com/" + url;
+        } else {
+            return null;
+        }
     }
 
     public Integer getHeight() {

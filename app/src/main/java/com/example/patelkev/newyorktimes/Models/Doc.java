@@ -34,7 +34,11 @@ public class Doc {
     }
 
     public String getImageUrl() {
-        return multimedia.get(0).getUrl();
+        if (multimedia.size() > 0) {
+            return multimedia.get(0).getUrl();
+        } else {
+            return null;
+        }
     }
 
     public String getSectionName() {
