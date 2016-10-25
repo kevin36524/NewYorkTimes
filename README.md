@@ -13,7 +13,7 @@ The following **required** functionality is completed:
 * [X] User can configure advanced search filters such as:
   * [X] Begin Date (using a date picker)
   * [X] News desk values (Arts, Fashion & Style, Sports)
-  * [ ] Sort order (oldest or newest)
+  * [X] Sort order (oldest or newest)
 * [X] Subsequent searches have any filters applied to the search results
 * [X] User can tap on any article in results to view the contents in an embedded browser.
 * [X] User can **scroll down to see more articles**. The maximum number of articles is limited by the API search.

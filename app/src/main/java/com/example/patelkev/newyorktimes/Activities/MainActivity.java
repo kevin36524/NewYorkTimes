@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         retrofit2.Call<RootResponse> rootResponseCall;
         String APIKey = "56e2ed9898c442f9826db5ee05a33ac4";
 
-        rootResponseCall = nyTimesServices.listArticles(APIKey, searchQuery, page, filterPref.getFilterString(), filterPref.getDate(false), null, null);
+        rootResponseCall = nyTimesServices.listArticles(APIKey, searchQuery, page, filterPref.getFilterString(), filterPref.getDate(false), null, filterPref.getSortString());
 
         if (page == 0) {
             endlessRecyclerViewScrollListener.resetState();

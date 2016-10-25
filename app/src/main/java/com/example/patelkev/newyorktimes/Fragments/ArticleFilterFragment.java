@@ -86,8 +86,8 @@ public class ArticleFilterFragment extends DialogFragment {
         cbSports.setChecked(filterPref.getSports());
         cbForeign.setChecked(filterPref.getForeign());
 
-        rbNewest.setActivated(filterPref.getNewest());
-        rbOldest.setActivated(filterPref.getOldest());
+        rbNewest.setChecked(filterPref.getNewest());
+        rbOldest.setChecked(filterPref.getOldest());
 
         saveButton = (Button) view.findViewById(R.id.btnSave);
         resetButton = (Button) view.findViewById(R.id.btnReset);
@@ -127,8 +127,8 @@ public class ArticleFilterFragment extends DialogFragment {
                 filterPref.setArts(cbArts.isChecked());
                 filterPref.setForeign(cbArts.isChecked());
 
-                filterPref.setNewest(rbNewest.isActivated());
-                filterPref.setOldest(rbOldest.isActivated());
+                filterPref.setNewest(rbNewest.isChecked());
+                filterPref.setOldest(rbOldest.isChecked());
 
                 delegate.setFilterPref(filterPref);
                 fragmentReference.dismiss();

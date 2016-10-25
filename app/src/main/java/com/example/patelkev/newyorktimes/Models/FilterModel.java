@@ -115,4 +115,12 @@ public class FilterModel implements Serializable {
         return retString;
 
     }
+
+    public String getSortString() {
+        String returnValue = "newest";
+        if (isOldest) {
+            returnValue = "oldest";
+        }
+        return returnValue;
+    }
 }
